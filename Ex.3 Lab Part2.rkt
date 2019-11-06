@@ -1,6 +1,18 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname |Esercizio 3 laboratio p2|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+
+;Procedura scheme che, date due stringhe, la prima contenente una sequenza di b cifre
+;ordinate per valore crescente e la seconda una rappresentazione numerica in base b che utilizza le cifre convenute, e
+;può eventualmente comprendere anche un segno e/o un punto per separare la parte frazionaria, restituisce il valore
+;razionale rappresentato dalla stringa.
+; esempi:
+;(converti "zu" "-uuzz") → -12
+;(converti "0123" "+21.1") → 9.25
+;(converti "01234" "-10.02") → -5.08
+;(converti "0123456789ABCDEF" "0.A") → 0.625
+;(converti "0123456789ABCDEF" "1CF.0") → 463
+
 (define converti                                                                                   ; Funzione che si occupa di analizzare la stringa in ingresso e verificare se contiene segni
   (lambda (strbase str)                                                                            ; stringa str = ciò che voglio convertire, strbase = indica la base utilizzata dalla stringa che voglio convertire in decimale
     (let ((primacifra (substring str 0 1)) (conversione (basetodec strbase (substring str 1))))    ; primacifra = primo carattere della stringa , conversione = manda al convertitore la stringa col segno rimosso (se presente)
